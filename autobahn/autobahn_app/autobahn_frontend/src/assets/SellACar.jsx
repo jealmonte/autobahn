@@ -4,7 +4,7 @@ import DirectionsCarFilledRoundedIcon from '@mui/icons-material/DirectionsCarFil
 
 function SellACar(){
     return(
-        <Button variant="outlined" style={{border: '2px solid', textTransform: 'none', background:'#757575', maxHeight: '50px', minHeight: '50px', minWidth: '140px', maxWidth: '140px', lineHeight: 1}} sx={{color:'#f5f5f5'}} startIcon={<DirectionsCarFilledRoundedIcon />}>
+        <Button variant="outlined" style={{border: '2px solid', textTransform: 'none', background:'#757575', maxHeight: '35px', minHeight: '35px', minWidth: '140px', maxWidth: '140px', lineHeight: 1}} sx={{color:'#f5f5f5'}} startIcon={<DirectionsCarFilledRoundedIcon />}>
             Sell A Car
         </Button>
     );
