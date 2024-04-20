@@ -31,7 +31,7 @@ export default function PriceDD() {
     <Box>
       <ul style={{paddingLeft:"0px"}}>
       <Button
-        variant="outlined" style={{display: "flex", border: '2px solid', textTransform: 'none', background:'#212121', maxHeight: '40px', minHeight: '40px', minWidth: '100%', maxWidth: '100%'}} sx={{color:'#757575'}} endIcon={<KeyboardArrowDownIcon/>}
+        variant="outlined" style={{display: "flex", border: '2px solid', textTransform: 'none', background:'#212121', maxHeight: '40px', minHeight: '40px', minWidth: '100%', maxWidth: '100%'}} sx={{color:'#eeeeee'}} endIcon={<KeyboardArrowDownIcon/>}
         onClick={handleClick}
       >
         Price
@@ -40,7 +40,7 @@ export default function PriceDD() {
       <Menu
         sx={
         { mt: "1px", "& .MuiMenu-paper": 
-          { backgroundColor: "#757575", }, 
+          { backgroundColor: "#eeeeee", }, 
         }}
         id="price-menu"
         anchorEl={anchorEl}

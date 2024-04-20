@@ -1,4 +1,11 @@
 html, body, #app, #app>div {
-    width: 100%;
+    width: 100vw;
+}
+
+.Appraisal {
+    border-color: aqua;
+    border: 2px solid;
+    border-radius: 2px;
+    width: 400px;
 }
 
