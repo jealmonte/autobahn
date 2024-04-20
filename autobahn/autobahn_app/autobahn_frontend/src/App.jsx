@@ -1,8 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import './App.css'
-import Header from './assets/Header';
-
 function App() {
 
 const theme = createTheme({
@@ -21,7 +19,6 @@ const theme = createTheme({
 
   return (
     <ThemeProvider theme={theme}>
-      <Header />
     </ThemeProvider>
   )
 }
