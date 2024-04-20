@@ -1,8 +1,9 @@
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import Header from './assets/Header';
-import SideBar from './assets/SideBar';
 import './App.css'
+import AboutPage from './assets/AboutPage';
+import Home from './assets/Home';
 function App() {
 
 const theme = createTheme({
@@ -20,9 +21,14 @@ const theme = createTheme({
 });
 
   return (
+    
     <ThemeProvider theme={theme}>
-      <Header />
-      <SideBar />
+      <BrowserRouter>
+      <Routes>
+        <Route path="/Home" element={<Home />} />
+        <Route path="/AboutPage" element={<AboutPage />} />
+      </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }

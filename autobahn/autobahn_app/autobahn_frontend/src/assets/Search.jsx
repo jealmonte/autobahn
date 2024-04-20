@@ -5,8 +5,11 @@ import { Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 function Search() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
   return (
-    <FormControl
+    <form onSubmit={handleSubmit}
       sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
       <TextField
@@ -36,6 +39,7 @@ function Search() {
         size="small"
       ></TextField>
       <Button
+        type="submit"
         variant="outlined"
         style={{
           border: "2px solid",
@@ -50,7 +54,7 @@ function Search() {
       >
         <SearchIcon />
       </Button>
-    </FormControl>
+    </form>
   );
 }
 
