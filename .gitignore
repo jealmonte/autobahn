@@ -1,0 +1,54 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Logs and temporary files
+logs/
+*.log
+temp/
+
+# Node.js dependencies
+node_modules/
+
+# Vite build output
+dist/
+build/
+
+# Local development settings
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Django stuff
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+staticfiles/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Other
+.cache/
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+*.mo
+*.pot
+*.bak
+*.swp
+*.swo
