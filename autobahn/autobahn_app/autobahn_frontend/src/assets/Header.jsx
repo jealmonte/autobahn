@@ -9,7 +9,7 @@ function Header() {
     return (
         <AppBar
             sx={{
-                position: "fixed",
+                position: "static",
                 backgroundColor: "primary.main",
                 height: "70px",
                 
