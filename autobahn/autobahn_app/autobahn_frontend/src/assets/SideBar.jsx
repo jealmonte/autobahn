@@ -1,11 +1,15 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { AppBar, Box } from '@mui/material';
+import DropdownMenu from './DropdownMenu';
 
 function SideBar(){
     return(
-        <Box sx={{height:'100vh'}}>
-            <p>alskdfj</p>
-        </Box>
+        <AppBar style={{border:"1px"}} position="left" sx={{height:'86vh', width:"250px", padding:"30px"}}>
+            <DropdownMenu category={"Distance"}/>
+            <DropdownMenu category={"Make"}/>
+            <DropdownMenu category={"Year"}/>
+            <DropdownMenu category={"Price"}/>
+        </AppBar>
     );
 }
 
