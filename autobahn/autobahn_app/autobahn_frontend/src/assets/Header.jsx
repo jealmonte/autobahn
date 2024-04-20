@@ -25,13 +25,13 @@ function Header() {
             alignItems="center"
             marginLeft="55px"
           >
-            <Typography variant="h5">AUTOBAHN</Typography>
+            <Typography variant="h5" fontFamily="Bebas Neue" sx={{ letterSpacing: '0.37em'}}>AUTOBAHN</Typography>
             <HomeButton navigate={navigate}/>
             <AboutUs navigate={navigate}/>
             <SellACar navigate={navigate}/>
           </Stack>
           <Box sx={{ flexGrow: 1 }} />
-          <Stack marginRight="175px">
+          <Stack marginRight="130px">
             <Search />
           </Stack>
         </Stack>
