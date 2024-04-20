@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd 
 import scrapy
+import json
 
 class CarListingsSpider(scrapy.Spider):
     name = 'car_listings'
@@ -51,24 +52,24 @@ class CarListingsSpider(scrapy.Spider):
                         'link': link
                     }
 
-        elif 'autotrader.com' in response.url:
-            listings = soup.select('div[data-cmp="vehicle-card"]')
-            for listing in listings:
-                year_make_model = listing.select_one('h2[data-cmp="vehicleCardYearMakeModel"]').text
-                if self.year in year_make_model and self.make in year_make_model and self.model in year_make_model:
-                    price = listing.select_one('div[data-cmp="firstPrice"]').text.strip().replace(',', '')
-                    mileage = listing.select_one('div[data-cmp="vehicleMileage"]').text.strip().split()[0].replace(',', '')
-                    link = 'https://www.autotrader.com' + listing.select_one('a[data-qaid="lnk-vehicle-tile"]')['href']
-                    self.print_listing(year_make_model, price, mileage, link)
-                    yield {
-                        'title': year_make_model,
-                        'price': price,
-                        'mileage': mileage,
-                        'link': link
-                    }
+        # elif 'autotrader.com' in response.url:
+        #     listings = soup.select('div[data-cmp="vehicle-card"]')
+        #     for listing in listings:
+        #         year_make_model = listing.select_one('h2[data-cmp="vehicleCardYearMakeModel"]').text
+        #         if self.year in year_make_model and self.make in year_make_model and self.model in year_make_model:
+        #             price = listing.select_one('div[data-cmp="firstPrice"]').text.strip().replace(',', '')
+        #             mileage = listing.select_one('div[data-cmp="vehicleMileage"]').text.strip().split()[0].replace(',', '')
+        #             link = 'https://www.autotrader.com' + listing.select_one('a[data-qaid="lnk-vehicle-tile"]')['href']
+        #             self.print_listing(year_make_model, price, mileage, link)
+        #             yield {
+        #                 'title': year_make_model,
+        #                 'price': price,
+        #                 'mileage': mileage,
+        #                 'link': link
+        #             }
 
         elif 'cars.com' in response.url:
-            website = 'https://www.cars.com/shopping/results/?stock_type=cpo&makes%5B%5D=mercedes_benz&models%5B%5D=&list_price_max=&maximum_distance=20&zip='
+            website = 'https://www.cars.com/shopping/results/?stock_type=used&makes%5B%5D=honda&models%5B%5D=honda-accord&maximum_distance=30&zip=20741'
             response = requests.get(website)
             response.status_code
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -95,20 +96,102 @@ class CarListingsSpider(scrapy.Spider):
                 except:
                     price.append('n/a')
             for i in range(len(name)):
-                print(f"Name: {name[i]}, Mileage: {mileage[i]}, Price: {price[i]}")
+                print(f"{name[i]}, Mileage: {mileage[i]}, Price: {price[i]}") 
 
-        elif 'cargurus.com' in response.url:
-            # Parse Carvana listings 
-            pass
-        elif 'edmunds.com' in response.url:
-            # Parse Carvana listings 
-            pass
+        # elif 'edmunds.com' in response.url:
+        #     website = 'https://www.edmunds.com/honda/accord/2018/'
+        #     response = requests.get(website)
+        #     response.status_code
+        #     soup = BeautifulSoup(response.content, 'html.parser')
+        #     results = soup.find_all('div', {'class' : 'd-flex mb-0_75 mb-md-1_5 col-12 col-md-6'})
+        #     len(results)
+        #     mileage = []
+        #     name = []
+        #     price = []
+
+        #     for result in results:
+        #         # name
+        #         try:
+        #             name.append(result.find('h2').get_text()) 
+        #         except:
+        #             name.append('n/a')
+        #         # mileage
+        #         try:
+        #             mileage.append(result.find('div', {'class':'text-cool-gray-30'}).get_text())
+        #         except:
+        #             mileage.append('n/a')
+        #         #price 
+        #         try:
+        #             price.append(result.find('span', {'class':'heading-3'}).get_text())
+        #         except:
+        #             price.append('n/a')
+        #     for i in range(len(name)):
+        #         print(f"{name[i]}, Mileage: {mileage[i]}, Price: {price[i]}")
+
         elif 'enterprisecarsales.com' in response.url:
-            # Parse Carvana listings 
-            pass
-        elif 'hertzcarsales.com' in response.url:
-            # Parse Carvana listings 
-            pass
+            website = 'https://www.enterprisecarsales.com/list/buy-a-car/models-Honda-Accord_Sedan/years-2019--2019/?zipcode=20740'
+            response = requests.get(website)
+            response.status_code
+            soup = BeautifulSoup(response.content, 'html.parser')
+            results = soup.find_all('div', {'class' : 'vehicle vehicle-grid-item'})
+            len(results)
+            mileage = []
+            name = []
+            price = []
+
+            for result in results:
+                # Extract the data-vehicle attribute
+                vehicle_data = result.get('data-vehicle')
+                
+                if vehicle_data:
+                    # Parse the JSON string
+                    vehicle_dict = json.loads(vehicle_data)
+                    
+                    # Extract name
+                    name_text = f"{vehicle_dict.get('year')} {vehicle_dict.get('make')} {vehicle_dict.get('model')} {vehicle_dict.get('trim')}"
+                    name.append(name_text)
+                    
+                    # Extract mileage
+                    mileage.append(vehicle_dict.get('mileage'))
+                    
+                    # Extract price  
+                    price.append(vehicle_dict.get('price'))
+                else:
+                    name.append('n/a')
+                    mileage.append('n/a')
+                    price.append('n/a')
+            for i in range(len(name)):
+                print(f"{name[i]}, Mileage: {mileage[i]}, Price: {price[i]}") 
+
+        # elif 'hertzcarsales.com' in response.url:
+        #     website = 'https://www.hertzcarsales.com/used-cars-for-sale.htm?make=Honda&model=Accord&geoZip=20740&geoRadius=0'
+        #     response = requests.get(website)
+        #     response.status_code
+        #     soup = BeautifulSoup(response.content, 'html.parser')
+        #     results = soup.find_all('div', {'class' : 'box box-border vehicle-card vehicle-card-detailed vehicle-offsite'})
+        #     len(results)
+        #     mileage = []
+        #     name = []
+        #     price = []
+
+        #     for result in results:
+        #         # name
+        #         try:
+        #             name.append(result.find('h2').get_text()) 
+        #         except:
+        #             name.append('n/a')
+        #         # mileage
+        #         try:
+        #             mileage.append(result.find('div', {'class':'odometer'}).get_text())
+        #         except:
+        #             mileage.append('n/a')
+        #         #price 
+        #         try:
+        #             price.append(result.find('span', {'class':'text-right portal-price'}).get_text())
+        #         except:
+        #             price.append('n/a')
+        #     for i in range(len(name)):
+        #         print(f"{name[i]}, Mileage: {mileage[i]}, Price: {price[i]}")   
 
         # Follow pagination links
         next_page = soup.select_one('a.next-page')
