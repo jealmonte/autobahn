@@ -12,7 +12,7 @@ function Header() {
                 position: "static",
                 backgroundColor: "primary.main",
                 height: "70px",
-                
+                pt: '10px'
             }}
         >
             <Stack direction='row' spacing={5} alignItems='center' marginLeft='20px'>
