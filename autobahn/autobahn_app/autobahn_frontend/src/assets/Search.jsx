@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 
 function Search() {
     return (
-        <TextField style={{borderRadius: '5px', textTransform: 'none', background:'#757575', width: '30vh'}} sx={{color:'#f5f5f5', 
+        <TextField style={{borderRadius: '5px', textTransform: 'none', background:'#757575', width: '350px',}} sx={{color:'#f5f5f5', 
         border: 'solid', "& label": { 
             "&.Mui-focused": {
               color: '#f5f5f5'

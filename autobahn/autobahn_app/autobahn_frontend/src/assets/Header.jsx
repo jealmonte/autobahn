@@ -22,7 +22,7 @@ function Header() {
                     <SellACar />
                 </Stack >
                 <Box sx={{ flexGrow: 1 }} />
-                <Stack marginRight='55px'>
+                <Stack marginRight='175px'>
                 <Search />
                 </Stack>
             </Stack>
