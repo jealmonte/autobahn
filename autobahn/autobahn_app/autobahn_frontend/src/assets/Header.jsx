@@ -3,6 +3,7 @@ import { AppBar, Box, Stack, Typography } from "@mui/material";
 import AboutUs from "./AboutUs";
 import HomeButton from "./HomeButton";
 import SellACar from "./SellACar";
+import Search from "./Search";
 
 function Header() {
     return (
@@ -19,6 +20,7 @@ function Header() {
                 <HomeButton />
                 <AboutUs />
                 <SellACar />
+                <Search />
             </Stack>
         </AppBar>
     );
