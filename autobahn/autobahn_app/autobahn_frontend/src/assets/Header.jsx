@@ -3,6 +3,7 @@ import { AppBar, Box, Stack, Typography } from "@mui/material";
 import AboutUs from "./AboutUs";
 import HomeButton from "./HomeButton";
 import SellACar from "./SellACar";
+import Search from "./Search";
 
 function Header() {
     return (
@@ -11,7 +12,7 @@ function Header() {
                 position: "fixed",
                 backgroundColor: "primary.main",
                 height: "70px",
-                
+                pt: '10px'
             }}
         >
             <Stack direction='row' spacing={5} alignItems='center' marginLeft='20px'>
@@ -19,6 +20,7 @@ function Header() {
                 <HomeButton />
                 <AboutUs />
                 <SellACar />
+                <Search />
             </Stack>
         </AppBar>
     );
