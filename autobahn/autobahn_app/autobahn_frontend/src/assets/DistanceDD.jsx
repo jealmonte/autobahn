@@ -6,9 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-export default function DistanceDD() {
+export default function DistanceDD({distance, setDistance}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [distance, setDistance] = React.useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +28,7 @@ export default function DistanceDD() {
         variant="outlined" style={{display: "flex", border: '2px solid', textTransform: 'none', background:'#212121', maxHeight: '40px', minHeight: '40px', minWidth: '100%', maxWidth: '100%',}} sx={{color:'#eeeeee'}} endIcon={<KeyboardArrowDownIcon/>}
         onClick={handleClick}
       >
-        Distance
+        Mileage
       </Button>
       </ul>
       <Menu
