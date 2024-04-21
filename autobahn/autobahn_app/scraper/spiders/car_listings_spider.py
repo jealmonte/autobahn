@@ -40,6 +40,7 @@ class CarListingsSpider(scrapy.Spider):
             mileage = []
             name = []
             price = []
+            image = []
 
             for result in results:
                 # name
@@ -57,14 +58,22 @@ class CarListingsSpider(scrapy.Spider):
                     price.append(result.find('div', {'class':'text-size-600 text-ultra-bold first-price', 'data-cmp':'firstPrice'}).get_text())
                 except:
                     price.append('n/a')
+                #image
+                try:
+                    img_tag = result.find('img', {'class': 'img-responsive-scale img-vertically-aligned'})
+                    if img_tag:
+                        image.append(img_tag['src'])
+                except:
+                    image.append('n/a')
 
-            for i in range(len(name)):
+            for name_value, price_value, mileage_value, image_value in zip(name, price, mileage, image):
                 car_listing = CarListing(
-                    name=name[i],
-                    price=price[i],
-                    mileage=mileage[i],
+                    name=name_value,
+                    price=price_value,
+                    mileage=mileage_value,
+                    image=image_value,  # This will now always be a valid element
                     link=response.url,
-                    raw_data={'name': name[i], 'price': price[i], 'mileage': mileage[i]}  # Storing the entire object
+                    raw_data=json.dumps({'name': name_value, 'price': price_value, 'mileage': mileage_value, 'image': image_value})
                 )
                 car_listing.save()
 
@@ -79,6 +88,7 @@ class CarListingsSpider(scrapy.Spider):
             mileage = []
             name = []
             price = []
+            image = []
 
             for result in results:
                 # name
@@ -96,13 +106,22 @@ class CarListingsSpider(scrapy.Spider):
                     price.append(result.find('span', {'class':'primary-price'}).get_text())
                 except:
                     price.append('n/a')
-            for i in range(len(name)):
+                # image
+                try:
+                    img_tag = result.find('img', {'class': 'vehicle-image'})
+                    if img_tag:
+                        image.append(img_tag['src'])
+                except:
+                    image.append('n/a')
+
+            for name_value, price_value, mileage_value, image_value in zip(name, price, mileage, image):
                 car_listing = CarListing(
-                    name=name[i],
-                    price=price[i],
-                    mileage=mileage[i],
+                    name=name_value,
+                    price=price_value,
+                    mileage=mileage_value,
+                    image=image_value,  # This will now always be a valid element
                     link=response.url,
-                    raw_data={'name': name[i], 'price': price[i], 'mileage': mileage[i]}  # Storing the entire object
+                    raw_data=json.dumps({'name': name_value, 'price': price_value, 'mileage': mileage_value, 'image': image_value})
                 )
                 car_listing.save()
 
@@ -116,6 +135,7 @@ class CarListingsSpider(scrapy.Spider):
             mileage = []
             name = []
             price = []
+            image = []
 
             for result in results:
                 # Extract the data-vehicle attribute
@@ -134,17 +154,26 @@ class CarListingsSpider(scrapy.Spider):
                     
                     # Extract price  
                     price.append(vehicle_dict.get('price'))
-                else:
+
+                    # Extract image
+                    picture_tag = result.find('picture')
+                    if picture_tag:
+                        img_tag = picture_tag.find('img')
+                        if img_tag:
+                            image.append(img_tag['src'])
+                else:                    
                     name.append('n/a')
                     mileage.append('n/a')
                     price.append('n/a')
+                    image.append('n/a')
 
-            for i in range(len(name)):
+            for name_value, price_value, mileage_value, image_value in zip(name, price, mileage, image):
                 car_listing = CarListing(
-                    name=name[i],
-                    price=price[i],
-                    mileage=mileage[i],
+                    name=name_value,
+                    price=price_value,
+                    mileage=mileage_value,
+                    image=image_value,  # This will now always be a valid element
                     link=response.url,
-                    raw_data={'name': name[i], 'price': price[i], 'mileage': mileage[i]}  # Storing the entire object
+                    raw_data=json.dumps({'name': name_value, 'price': price_value, 'mileage': mileage_value, 'image': image_value})
                 )
                 car_listing.save()
