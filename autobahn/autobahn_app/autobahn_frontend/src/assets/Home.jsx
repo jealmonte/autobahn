@@ -10,7 +10,7 @@ function Home() {
             <Header />
             <Stack direction="row" sx={{ width: '100%', overflow: 'hidden' }}>
                 <SideBar />
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', flexGrow: 1 }}>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', flexGrow: 1, mt: 13 }}>
                     <Cards />
                     <Cards />
                     <Cards />
