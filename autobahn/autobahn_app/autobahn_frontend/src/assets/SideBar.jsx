@@ -6,7 +6,7 @@ import PriceDD from './PriceDD';
 
 function SideBar(){
     return(
-        <AppBar style={{border:"1px"}} position='static' sx={{height:'100vh', width:"250px", padding:"30px", paddingTop:"90px", mr: 1}}>
+        <AppBar style={{border:"1px"}} position='static' sx={{height:'100vh', width:"250px", padding:"30px", paddingTop:"90px", mr: 5}}>
             <DistanceDD />
             <YearDD/>
             <PriceDD/>
