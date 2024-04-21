@@ -6,9 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-export default function YearDD() {
+export default function YearDD({year, setYear}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [year, setYear] = React.useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

@@ -7,36 +7,27 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "@mui/material";
 
-function CarListings() {
+function CarListings({year, setYear, distance, setDistance,  minPrice, setMinPrice, maxPrice, setMaxPrice}) {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/autobahn_app/car_listings/')
             .then(response => {
-                // Parse the raw_data field to access the properties
-                const updatedListings = response.data.map(listing => {
-                    const rawData = JSON.parse(listing.raw_data);
-                    return {
-                        ...listing,
-                        name: rawData.name,
-                        image: rawData.image
-                    };
+                const filteredListings = response.data.filter(listing => {
+                    const yearOfCar = parseInt(listing.name.substring(0, 4), 10);
+                    const mileageOfCar = parseInt(listing.mileage.replace(/,/g, '').split(' ')[0], 10);
+                    const priceOfCar = parseInt(listing.price.replace(/,/g, ''), 10);
+                    return yearOfCar >= year && mileageOfCar <= distance && priceOfCar >= minPrice && priceOfCar <= maxPrice;
                 });
-                // Sort listings to put entries without a placeholder image at the top
-                updatedListings.sort((a, b) => {
-                    const aIsPlaceholder = a.image.includes('placeholder_10x10');
-                    const bIsPlaceholder = b.image.includes('placeholder_10x10');
-                    return aIsPlaceholder - bIsPlaceholder;
-                });
-                setListings(updatedListings);
+                setListings(filteredListings);
             })
             .catch(error => console.error('Error fetching data: ', error));
-    }, []);
+    }, [year, distance, minPrice, maxPrice]);
 
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
             {listings.map(listing => (
-                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, m: 2 }}>
+                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, maxHeight: 290, m: 2 }}>
                     <CardMedia
                         component="img"
                         height="140"
