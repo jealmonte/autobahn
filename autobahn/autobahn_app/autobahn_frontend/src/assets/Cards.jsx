@@ -10,11 +10,12 @@ import { styled } from '@mui/material';
 export default function Cards() {
 
     const HoverCard = styled(Card)(({ theme }) => ({
-        transition: theme.transitions.create(['transform'], {
+        transition: theme.transitions.create(['transform', 'box-shadow'], {
           duration: theme.transitions.duration.standard,
         }),
         '&:hover': {
-          transform: 'scale(1.05)', // Slightly enlarges the card
+          transform: 'scale(1.05)',
+          boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
         },
       }));
 
