@@ -20,9 +20,9 @@ function CarListings() {
     }, []);
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
             {listings.map(listing => (
-                <Card key={listing.id} sx={{ maxWidth: 345, m: 2 }}>
+                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, m: 2 }}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -36,7 +36,7 @@ function CarListings() {
                         <Typography variant="body2" color="text.secondary">
                             Price: {listing.price} - Mileage: {listing.mileage}
                         </Typography>
-                        <Button size="small" variant="contained">
+                        <Button size="small" variant="contained" style={{background:"#757575", marginTop:"18px"}}>
                             <Link href={listing.link} target="_blank" rel="noopener">
                                 Get More Info
                             </Link>
