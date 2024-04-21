@@ -27,11 +27,11 @@ function CarListings() {
                         component="img"
                         height="140"
                         image={listing.image || "default_image_url_here"}
-                        alt={listing.title}
+                        alt={listing.raw_data.name}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            {listing.title}
+                            {listing.raw_data.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Price: {listing.price} - Mileage: {listing.mileage}
