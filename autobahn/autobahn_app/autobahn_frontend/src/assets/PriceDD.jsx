@@ -6,10 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-export default function PriceDD() {
+export default function PriceDD({minPrice, setMinPrice, maxPrice, setMaxPrice}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [minPrice, setMinPrice] = React.useState('');
-  const [maxPrice, setMaxPrice] = React.useState('');
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

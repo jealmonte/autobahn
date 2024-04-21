@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "@mui/material";
 
-function CarListings({year, setYear, distance, setDistance}) {
+function CarListings({year, setYear, distance, setDistance,  minPrice, setMinPrice, maxPrice, setMaxPrice}) {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
@@ -17,17 +17,18 @@ function CarListings({year, setYear, distance, setDistance}) {
                 const filteredListings = response.data.filter(listing => {
                     const yearOfCar = parseInt(listing.name.substring(0, 4), 10);
                     const mileageOfCar = parseInt(listing.mileage.replace(/,/g, '').split(' ')[0], 10);
-                    return yearOfCar >= year && mileageOfCar <= distance;
+                    const priceOfCar = parseInt(listing.price.replace(/,/g, ''), 10);
+                    return yearOfCar >= year && mileageOfCar <= distance && priceOfCar >= minPrice && priceOfCar <= maxPrice;
                 });
                 setListings(filteredListings);
             })
             .catch(error => console.error('Error fetching data: ', error));
-    }, [year, distance]);
+    }, [year, distance, minPrice, maxPrice]);
 
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
             {listings.map(listing => (
-                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, m: 2 }}>
+                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, maxHeight: 290, m: 2 }}>
                     <CardMedia
                         component="img"
                         height="140"
