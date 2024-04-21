@@ -10,13 +10,18 @@ import { Link } from "@mui/material";
 function CarListings({ year, distance, minPrice, maxPrice }) {
   const [listings, setListings] = useState([]);
 
-  useEffect(() => {
+useEffect(() => {
     axios.get('http://127.0.0.1:8000/autobahn_app/car_listings/')
         .then(response => {
             const filteredListings = response.data.filter(listing => {
                 const yearOfCar = parseInt(listing.name.substring(0, 4), 10);
                 const mileageOfCar = parseInt(listing.mileage.replace(/,/g, '').split(' ')[0], 10);
                 const priceOfCar = parseInt(listing.price.replace(/,/g, ''), 10);
+                response.data.forEach(listing => {
+                    const rawData = JSON.parse(listing.raw_data);
+                    listing.name = rawData.name;
+                    listing.image = rawData.image;
+                });
                 return yearOfCar >= year && mileageOfCar <= distance && priceOfCar >= minPrice && priceOfCar <= maxPrice;
             });
             setListings(filteredListings);
