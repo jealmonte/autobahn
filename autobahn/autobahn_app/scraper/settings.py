@@ -9,13 +9,3 @@ django.setup()
 
 BOT_NAME = 'autobahn_app'
 SPIDER_MODULES = ['autobahn_app.scraper.spiders']
-
-# Configure item pipelines
-ITEM_PIPELINES = {
-    'autobahn_app.scraper.pipelines.AutobahnAppScraperPipeline': 300,
-}
-
-# Configure feed exports
-FEEDS = {
-    'autobahn_app/scraper/items.json': {'format': 'json'},
-}
