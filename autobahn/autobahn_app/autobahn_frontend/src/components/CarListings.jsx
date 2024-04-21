@@ -8,21 +8,25 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "@mui/material";
 
-function CarListings() {
+function CarListings({year, setYear}) {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/autobahn_app/car_listings/')
             .then(response => {
-                setListings(response.data);
+                const filteredListings = response.data.filter(listing => {
+                    const yearOfCar = parseInt(listing.name.substring(0, 4), 10);
+                    return yearOfCar >= year;
+                });
+                setListings(filteredListings);
             })
             .catch(error => console.error('Error fetching data: ', error));
-    }, []);
+    }, [year]);
 
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
             {listings.map(listing => (
-                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, m: 2 }}>
+                <Card key={listing.id} sx={{ maxWidth: 345, minWidth: 345, minHeight: 270, maxHeight: 320, m: 2 }}>
                     <CardMedia
                         component="img"
                         height="140"

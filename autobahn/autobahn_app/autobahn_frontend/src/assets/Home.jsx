@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 import Cards from "./Cards";
@@ -6,13 +6,14 @@ import { Stack, Box } from "@mui/material";
 import CarListings from '../components/CarListings';
 
 function Home() {
+    const [year, setYear] = useState(0);
     return(
         <>
             <Header />
             <Stack direction="row" sx={{ width: '100%', overflow: 'hidden' }}>
-            <SideBar />
+            <SideBar year={year} setYear={setYear}/>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', flexGrow: 1, mt: 13 }}>
-                    <CarListings />
+                    <CarListings year={year} setYear={setYear}/>
                 </Box>
             </Stack>
         </>
