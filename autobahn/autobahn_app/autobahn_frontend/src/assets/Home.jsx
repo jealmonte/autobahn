@@ -3,22 +3,16 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import Cards from "./Cards";
 import { Stack, Box } from "@mui/material";
+import CarListings from '../components/CarListings';
 
 function Home() {
     return(
         <>
             <Header />
             <Stack direction="row" sx={{ width: '100%', overflow: 'hidden' }}>
-                <SideBar />
+            <SideBar />
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', flexGrow: 1, mt: 13 }}>
-                    <Cards />
-                    <Cards />
-                    <Cards />
-                    <Cards />
-                    <Cards />
-                    <Cards />
-                    <Cards />
-                    <Cards />
+                    <CarListings />
                 </Box>
             </Stack>
         </>
