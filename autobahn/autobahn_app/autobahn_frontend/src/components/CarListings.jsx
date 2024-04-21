@@ -63,39 +63,46 @@ useEffect(() => {
     >
       {listings.map((listing) => (
         <Card
-          key={listing.id}
-          sx={{
-            maxWidth: 345,
-            minWidth: 345,
-            minHeight: 270,
-            maxHeight: 350,
-            m: 2,
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="140"
-            image={listing.image}
-            alt={listing.name}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {listing.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Price: {listing.price} - Mileage: {listing.mileage}
-            </Typography>
-            <Button
-              size="small"
-              variant="contained"
-              style={{ background: "#757575", marginTop: "18px" }}
-            >
-              <Link href={listing.link} target="_blank" rel="noopener">
-                Get More Info
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        key={listing.id}
+        sx={{
+          maxWidth: 345,
+          minWidth: 345,
+          minHeight: 270,
+          maxHeight: 350,
+          m: 2,
+          display: 'flex', // Ensures the card itself is a flex container
+          flexDirection: 'column' // Stacks children vertically
+        }}
+      >
+        <CardMedia
+          component="img"
+          height="140"
+          image={listing.image}
+          alt={listing.name}
+        />
+        <CardContent style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'space-between', 
+          flex: '1 0 auto' // Takes up all available space
+        }}>
+          <Typography gutterBottom variant="h5" component="div">
+            {listing.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Price: ${listing.price} - Mileage: {listing.mileage}
+          </Typography>
+          <Button
+            size="small"
+            variant="contained"
+            style={{ background: "#757575", marginTop: "18px" }}
+          >
+            <Link href={listing.link} target="_blank" rel="noopener">
+              Get More Info
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
       ))}
     </div>
   );
