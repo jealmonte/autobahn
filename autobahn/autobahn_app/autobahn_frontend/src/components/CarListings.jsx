@@ -7,18 +7,38 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "@mui/material";
 
-function CarListings({year, setYear, distance, setDistance,  minPrice, setMinPrice, maxPrice, setMaxPrice}) {
+function CarListings({ year, distance, minPrice, maxPrice }) {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/autobahn_app/car_listings/')
             .then(response => {
-                const filteredListings = response.data.filter(listing => {
-                    const yearOfCar = parseInt(listing.name.substring(0, 4), 10);
-                    const mileageOfCar = parseInt(listing.mileage.replace(/,/g, '').split(' ')[0], 10);
-                    const priceOfCar = parseInt(listing.price.replace(/,/g, ''), 10);
-                    return yearOfCar >= year && mileageOfCar <= distance && priceOfCar >= minPrice && priceOfCar <= maxPrice;
+                // Parse and initially process the listings
+                const processedListings = response.data.map(listing => {
+                    const rawData = JSON.parse(listing.raw_data);
+                    return {
+                        ...listing,
+                        name: rawData.name,
+                        image: rawData.image,
+                        year: parseInt(listing.name.substring(0, 4), 10),
+                        mileage: parseInt(listing.mileage.replace(/,/g, '').split(' ')[0], 10),
+                        price: parseInt(listing.price.replace(/,/g, ''), 10)
+                    };
                 });
+
+                // Filter listings based on the provided criteria
+                const filteredListings = processedListings.filter(listing => {
+                    return listing.year >= year && listing.mileage <= distance && 
+                           listing.price >= minPrice && listing.price <= maxPrice;
+                });
+
+                // Sort listings to put entries without a placeholder image at the top
+                filteredListings.sort((a, b) => {
+                    const aIsPlaceholder = a.image.includes('placeholder_10x10');
+                    const bIsPlaceholder = b.image.includes('placeholder_10x10');
+                    return aIsPlaceholder - bIsPlaceholder;
+                });
+
                 setListings(filteredListings);
             })
             .catch(error => console.error('Error fetching data: ', error));
