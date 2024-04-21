@@ -1,4 +1,3 @@
-// CarListings.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from "@mui/material/Card";
@@ -14,7 +13,22 @@ function CarListings() {
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/autobahn_app/car_listings/')
             .then(response => {
-                setListings(response.data);
+                // Parse the raw_data field to access the properties
+                const updatedListings = response.data.map(listing => {
+                    const rawData = JSON.parse(listing.raw_data);
+                    return {
+                        ...listing,
+                        name: rawData.name,
+                        image: rawData.image
+                    };
+                });
+                // Sort listings to put entries without a placeholder image at the top
+                updatedListings.sort((a, b) => {
+                    const aIsPlaceholder = a.image.includes('placeholder_10x10');
+                    const bIsPlaceholder = b.image.includes('placeholder_10x10');
+                    return aIsPlaceholder - bIsPlaceholder;
+                });
+                setListings(updatedListings);
             })
             .catch(error => console.error('Error fetching data: ', error));
     }, []);
@@ -27,11 +41,11 @@ function CarListings() {
                         component="img"
                         height="140"
                         image={listing.image || "default_image_url_here"}
-                        alt={listing.raw_data.name}
+                        alt={listing.name}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            {listing.raw_data.name}
+                            {listing.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Price: {listing.price} - Mileage: {listing.mileage}
