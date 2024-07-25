@@ -9,3 +9,11 @@ html, body, #app, #app>div {
     width: 400px;
 }
 
+.icon {
+    transition: transform 5s ease-in-out, box-shadow 1s ease-in-out;
+  }
+
+  .icon:hover {
+    transform: scale(1.05); 
+    box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.6); 
+  }

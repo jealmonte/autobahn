@@ -64,6 +64,7 @@ useEffect(() => {
       {listings.map((listing) => (
         <Card
         key={listing.id}
+        className="icon"
         sx={{
           maxWidth: 345,
           minWidth: 345,

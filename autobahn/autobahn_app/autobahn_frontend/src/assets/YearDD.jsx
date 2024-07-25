@@ -25,7 +25,7 @@ export default function YearDD({year, setYear}) {
     <Box>
       <ul style={{paddingLeft:"0px"}}>
       <Button
-        variant="outlined" style={{display: "flex", border: '2px solid', textTransform: 'none', background:'#212121', maxHeight: '40px', minHeight: '40px', minWidth: '100%', maxWidth: '100%'}} sx={{color:'#eeeeee'}} endIcon={<KeyboardArrowDownIcon/>}
+        variant="outlined" style={{display: "flex", border: '2px solid', textTransform: 'none', background:'#212121', maxHeight: '40px', minHeight: '40px', minWidth: '190px', maxWidth: '190px'}} sx={{color:'#eeeeee'}} endIcon={<KeyboardArrowDownIcon/>}
         onClick={handleClick}
       >
         Year
